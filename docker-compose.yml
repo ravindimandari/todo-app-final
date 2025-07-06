@@ -1,0 +1,61 @@
+version: '3.8' # Specify the Docker Compose file format version
+
+services:
+  # MySQL Database Service
+  mysql-db:
+    image: mysql:8 # Use a specific MySQL version for consistency
+    container_name: mysql-docker # Explicitly name the container
+    ports:
+      - "3308:3306" # Map host port 3308 to container port 3306
+    environment: # Set environment variables for MySQL setup
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: your_user # <<< REMEMBER TO CHANGE THIS TO YOUR DESIRED USERNAME
+      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: productDb_docker
+    volumes:
+      - db_data:/var/lib/mysql # Persist your database data
+    healthcheck: # Health check to ensure MySQL is ready before dependent services start
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  # Spring Boot Backend Service
+  backend:
+    build: ./backend # Tells Docker Compose to build the image from the Dockerfile in the ./backend directory
+    container_name: product-app-container # Explicitly name the container
+    ports:
+      - "8080:8080" # Map host port 8080 to container port 8080
+    environment: # Pass database connection details as environment variables
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/productDb_docker?createDatabaseIfNotExist=true # Connects to 'mysql-db' service on its internal port 3306
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on: # Ensure MySQL is healthy before starting the backend
+      mysql-db:
+        condition: service_healthy
+    # Optional: If you need to map local Spring Boot profiles, e.g., for dev
+    # profiles:
+    #   - "dev"
+
+  # Node.js Frontend Service
+  frontend:
+    build: ./frontend # Tells Docker Compose to build the image from the Dockerfile in the ./frontend directory
+    container_name: frontend-app-container # Explicitly name the container
+    ports:
+      - "3001:3001" # Map host port 3001 to container port 3001
+    environment:
+      # If your frontend needs to know the backend URL, configure it here.
+      # The service name 'backend' is used for inter-container communication.
+      REACT_APP_BACKEND_URL: http://backend:8080 # Example for React, adjust env var name as needed
+    depends_on: # Ensure backend is started before starting the frontend
+      backend:
+        condition: service_started
+    # Optional: If your frontend needs to access the host machine's network (e.g., for a proxy)
+    # extra_hosts:
+    #   - "host.docker.internal:host-gateway"
+
+# Define named volumes for data persistence
+volumes:
+  db_data: # This volume will store your MySQL database data
