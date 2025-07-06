@@ -73,7 +73,7 @@ Follow these steps to get the application up and running locally using Docker Co
 First, clone this repository to your local machine:
 
 ```bash
-git clone [https://github.com/ravindimandari/todo-app-final.git](https://github.com/ravindimandari/todo-app-final.git)
+git clone https://github.com/ravindimandari/todo-app-final
 cd todo-app-final
 ```
 
