@@ -30,7 +30,7 @@ function TaskForm({ onAddTask }) {
         onChange={(e) => setDescription(e.target.value)}
       />
       <button type="submit" className="add-button">
-        + Add another Task
+        submit
       </button>
     </form>
   );

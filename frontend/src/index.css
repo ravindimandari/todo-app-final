@@ -3,11 +3,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  --bg-color-light: #f0f2f5;
+  --bg-color-light: #e9ddec;
   --bg-color-dark-card: #ffffff;
-  --primary-purple: #6143bb; /* A deep purple for emphasis */
+  --primary-purple: #907ad0; /* A deep purple for emphasis */
   --light-purple-bg: #e7d7f1;
-  --light-purple-hover: #d0d0e8;
+  --light-purple-hover: #8b8bdd;
   --text-color-dark: #333;
   --text-color-light: #3b3a3a;
   --border-color: #000000;
@@ -31,7 +31,20 @@ body {
   min-height: 100vh;
   padding: 20px;
   box-sizing: border-box;
-  overflow: auto; /* Allow scrolling if content is too tall */
+  overflow-y: auto; /* Allow scrolling if content is too tall */
+  overflow-x: hidden;
+}
+
+.app-wrapper {
+  position: relative;
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 #root {
@@ -49,28 +62,48 @@ body {
   overflow: hidden;
   margin-left: auto; /* Center the card horizontally */
   margin-right: auto; /* Center the card horizontally */
+  max-width: 400px;
+  width: 100%;
+  z-index: 1; /* Keep container above circles */
 }
 
 .bg-circle {
   position: absolute;
-  background-color: var(--light-purple-bg);
+  background-color: rgb(49, 0, 84);
   border-radius: 50%;
   opacity: 0.6; /* Slightly transparent */
   z-index: 0; /* Behind other content */
 }
 
 .bg-circle-top-left {
-  width: 180px;
-  height: 180px;
-  top: -80px;
-  left: -80px;
+  width: 550px;
+  height: 550px;
+  top: -100px;
+  left: -100px;
 }
 
 .bg-circle-bottom-right {
-  width: 250px;
-  height: 250px;
-  bottom: -120px;
-  right: -120px;
+  width: 550px;
+  height: 550px;
+  bottom: -150px;
+  right: -150px;
+}
+
+.bg-circle-center-left {
+  width: 500px; /* Adjust size as desired */
+  background-color: #907ad0;
+  height: 450px;
+  top: 40%; /* Position vertically centered */
+  left: -180px; /* Position off-screen to the left */
+  transform: translateY(-50%); /* Adjust to truly center vertically */
+}
+.bg-circle-center-right {
+  width: 500px; /* Adjust size as desired */
+  height: 500px;
+  top: 38%; /* Slightly offset from vertical center */
+  right: -190px; /* Position off-screen to the right */
+  /* No transform needed if you are comfortable with the top offset */
+  background-color: #907ad0;
 }
 
 h1 {
@@ -91,7 +124,7 @@ h1 {
 
 .form-input {
   width: calc(100% - 20px);
-  padding: 10px 10px;
+  padding: 12px 10px;
   margin-bottom: 15px;
   border: 1px dashed var(--border-color);
   border-radius: 0px;
@@ -114,18 +147,19 @@ h1 {
 }
 
 .add-button {
-  width: 50%;
-  padding: 8px;
+  width: 35%;
+  padding: 5px;
   background-color: var(--green-add-task);
   color: var(--text-color-dark);
-  border: dashed;
+  border-color: #c3e6cb;
   font-size: 1em;
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.1s ease-out; /* Added transform */
-  margin-top: 5px;
-  border-radius: 20px;
+  margin-top: 3px;
+  border-radius: 15px;
   align-items: center;
+  margin-left: 110px;
 }
 
 .add-button:hover {
@@ -143,6 +177,7 @@ h1 {
   margin: 0;
   position: relative;
   z-index: 1; /* Above background circles */
+  border-color: #000000;
 
 }
 
@@ -156,7 +191,7 @@ h1 {
   transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease; /* Added transform */
   position: relative;
   overflow: hidden; /* For delete animation */
-  border: solid var(--primary-purple);
+  /* border-color: black; */
 }
 
 .task-item.completed {
