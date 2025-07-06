@@ -32,7 +32,8 @@ body {
   padding: 20px;
   box-sizing: border-box;
   overflow-y: auto; /* Allow scrolling if content is too tall */
-  overflow-x: hidden;
+  overflow-x: auto;
+  /* margin-right: 300px; */
 }
 
 .app-wrapper {
