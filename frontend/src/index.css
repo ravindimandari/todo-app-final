@@ -1,0 +1,318 @@
+/* index.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-color-light: #f0f2f5;
+  --bg-color-dark-card: #ffffff;
+  --primary-purple: #6143bb; /* A deep purple for emphasis */
+  --light-purple-bg: #e7d7f1;
+  --light-purple-hover: #d0d0e8;
+  --text-color-dark: #333;
+  --text-color-light: #3b3a3a;
+  --border-color: #000000;
+  --green-add-task: #d4edda;
+  --green-add-task-hover: #c3e6cb;
+  --checkbox-border: #ccc;
+  --checkbox-checked: var(--primary-purple);
+  --shadow-light: rgba(0, 0, 0, 0.08);
+  --error-red: #e74c3c; /* For error messages */
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-color-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: auto; /* Allow scrolling if content is too tall */
+}
+
+#root {
+  width: 100%;
+  max-width: 400px; /* Adjust as needed */
+}
+
+.container {
+  background-color: var(--bg-color-dark-card);
+  border-radius: 45px;
+  padding: 30px;
+  box-shadow: 0 10px 30px var(--shadow-light);
+  border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+  margin-left: auto; /* Center the card horizontally */
+  margin-right: auto; /* Center the card horizontally */
+}
+
+.bg-circle {
+  position: absolute;
+  background-color: var(--light-purple-bg);
+  border-radius: 50%;
+  opacity: 0.6; /* Slightly transparent */
+  z-index: 0; /* Behind other content */
+}
+
+.bg-circle-top-left {
+  width: 180px;
+  height: 180px;
+  top: -80px;
+  left: -80px;
+}
+
+.bg-circle-bottom-right {
+  width: 250px;
+  height: 250px;
+  bottom: -120px;
+  right: -120px;
+}
+
+h1 {
+  text-align: center;
+  color: var(--text-color-dark);
+  margin-bottom: 25px;
+  font-size: 1.6em;
+  font-weight: 600;
+  position: relative;
+  z-index: 1; /* Above background circles */
+}
+
+.task-form {
+  margin-bottom: 50x;
+  position: relative;
+  z-index: 1; /* Above background circles */
+}
+
+.form-input {
+  width: calc(100% - 20px);
+  padding: 10px 10px;
+  margin-bottom: 15px;
+  border: 1px dashed var(--border-color);
+  border-radius: 0px;
+  font-size: 1em;
+  color: var(--text-color-dark);
+  background-color: var(--light-purple-bg);
+  text-align: center;
+  outline: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.1s ease-out; /* Added transform */
+}
+
+.form-input::placeholder {
+  color: var(--text-color-light);
+}
+
+.form-input:focus {
+  border-color: var(--primary-purple);
+  background-color: var(--light-purple-hover);
+  transform: translateY(-2px); /* Slight lift on focus */
+}
+
+.add-button {
+  width: 50%;
+  padding: 8px;
+  background-color: var(--green-add-task);
+  color: var(--text-color-dark);
+  border: dashed;
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease-out; /* Added transform */
+  margin-top: 5px;
+  border-radius: 20px;
+  align-items: center;
+}
+
+.add-button:hover {
+  background-color: var(--green-add-task-hover);
+  transform: translateY(-2px); /* Slight lift on hover */
+}
+
+.add-button:active {
+  transform: translateY(0); /* Press effect */
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  z-index: 1; /* Above background circles */
+
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  background-color: var(--light-purple-bg);
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease; /* Added transform */
+  position: relative;
+  overflow: hidden; /* For delete animation */
+  border: solid var(--primary-purple);
+}
+
+.task-item.completed {
+  background-color: var(--primary-purple);
+  color: #fff;
+}
+
+.task-item:hover {
+  background-color: var(--light-purple-hover);
+  transform: translateY(-3px); /* Slight lift on hover */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Subtle shadow on hover */
+}
+
+.task-details {
+  flex-grow: 1;
+  margin-right: 15px;
+}
+
+.task-details h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: inherit; /* Inherit color from parent for completed state */
+}
+
+.task-details p {
+  margin: 0;
+  font-size: 0.9em;
+  color: inherit; /* Inherit color from parent for completed state */
+}
+
+.checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 0;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  height: 22px;
+  width: 22px;
+  background-color: var(--bg-color-dark-card); /* White background for checkbox */
+  border: 2px solid var(--checkbox-border);
+  border-radius: 50%;
+  transition: background-color 0.3s ease, border-color 0.3s ease; /* Added transition */
+}
+
+.task-item.completed .checkmark {
+  background-color: var(--checkbox-checked);
+  border-color: var(--checkbox-checked);
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Transition for checkmark */
+}
+
+.task-item.completed .checkmark:after {
+  left: 7px;
+  top: 3px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  opacity: 1; /* Ensure visible after transition */
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  color: #c00;
+  font-size: 1.2em;
+  cursor: pointer;
+  margin-left: 10px;
+  opacity: 0; /* Hidden by default */
+  transform: translateX(10px); /* Start slightly off-screen */
+  transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease; /* Added transform and color */
+}
+
+.task-item:hover .delete-button {
+  opacity: 1; /* Show on hover */
+  transform: translateX(0); /* Slide into view */
+}
+
+.delete-button:hover {
+  color: var(--error-red); /* Darker red on hover */
+}
+
+/* Error message styling */
+.error-message {
+  color: var(--error-red);
+  text-align: center;
+  margin-top: 15px;
+  font-size: 0.9em;
+  font-weight: 500;
+  padding: 8px;
+  background-color: rgba(231, 76, 60, 0.1);
+  border-radius: 8px;
+  transition: opacity 0.3s ease;
+  opacity: 1;
+}
+
+.error-message.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.4em;
+  }
+
+  .form-input, .add-button, .task-item {
+    font-size: 0.95em;
+  }
+
+  .task-details h3 {
+    font-size: 1em;
+  }
+
+  .task-details p {
+    font-size: 0.85em;
+  }
+}
