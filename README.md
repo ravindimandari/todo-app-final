@@ -77,7 +77,6 @@ git clone https://github.com/ravindimandari/todo-app-final
 cd todo-app-final
 ```
 
-(Replace `your-username` with your actual GitHub username)
 
 #### Environment Variables
 
