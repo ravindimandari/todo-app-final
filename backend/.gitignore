@@ -1,8 +1,5 @@
 ### Build artifacts ###
 # Ignore everything in build/ except the final JAR
-build/
-!build/libs/
-!build/libs/*.jar
 
 ### Gradle ###
 .gradle/
