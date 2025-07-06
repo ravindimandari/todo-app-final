@@ -77,24 +77,6 @@ git clone https://github.com/ravindimandari/todo-app-final
 cd todo-app-final
 ```
 
-
-#### Environment Variables
-
-Create a `.env` file in the root directory of the project (where `docker-compose.yml` is located) and populate it with the necessary environment variables. This file is ignored by Git for security reasons.
-
-```bash
-cp .env.example .env
-```
-
-Now, open the newly created `.env` file and set the values:
-
-```
-# MySQL Database Credentials
-MYSQL_ROOT_PASSWORD=root
-MYSQL_USER=your_user # Replace with your desired MySQL user
-MYSQL_PASSWORD=root
-```
-
 #### Build and Run with Docker Compose
 
 Navigate to the root directory of the `todo-app-final` project (where `docker-compose.yml` is located) in your terminal.
